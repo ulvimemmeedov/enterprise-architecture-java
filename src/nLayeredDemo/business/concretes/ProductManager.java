@@ -3,16 +3,18 @@ package nLayeredDemo.business.concretes;
 import java.util.List;
 
 import nLayeredDemo.business.abstracts.ProductService;
+import nLayeredDemo.core.LoggerService;
 import nLayeredDemo.entities.concretes.Product;
 import nLayeredDemo.dataAccess.abstracts.ProductDao;
 
 public class ProductManager implements ProductService {
     // Dependency Injection
     private ProductDao ProductDao;
-
-    public ProductManager(nLayeredDemo.dataAccess.abstracts.ProductDao productDao) {
+    private LoggerService loggerService;
+    public ProductManager(ProductDao productDao,LoggerService loggerService) {
         super();
         ProductDao = productDao;
+        this.loggerService = loggerService;
     }
 
     @Override
@@ -22,6 +24,7 @@ public class ProductManager implements ProductService {
             return;
         }
         this.ProductDao.add(product);   
+        loggerService.logToSystem("Mehsul elave edildi "+product.getName());
     }
 
     @Override
